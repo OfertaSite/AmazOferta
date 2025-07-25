@@ -1418,3 +1418,61 @@ footer::before {
         max-width: 100%;
     }
 }
+
+.payment-options {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+    
+    .payment-option {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70px;
+        height: 70px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .payment-option:hover {
+        border-color: #2ecc71;
+    }
+    
+    .payment-option.selected {
+        border: 2px solid #2ecc71;
+        background-color: #f0fff4;
+    }
+    
+    .payment-option img {
+        max-width: 40px;
+        height: auto;
+    }
+
+    /* Estilos para mobile */
+    @media (max-width: 768px) {
+        .payment-option {
+            width: 60px;
+            height: 60px;
+            padding: 8px;
+        }
+        
+        .payment-option img {
+            max-width: 35px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .payment-option {
+            width: 50px;
+            height: 50px;
+            padding: 5px;
+        }
+        
+        .payment-option img {
+            max-width: 30px;
+        }
+    }
