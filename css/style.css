@@ -1476,3 +1476,19 @@ footer::before {
             max-width: 30px;
         }
     }
+
+    .security-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    padding: 10px;
+}
+
+.security-badge svg {
+    flex-shrink: 0; /* Impede que o ícone diminua */
+}
